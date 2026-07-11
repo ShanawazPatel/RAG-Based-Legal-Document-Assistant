@@ -4,6 +4,7 @@ from chatbot import chatbot_page
 from document_generator import document_generator_page
 
 def main():
+    st.title("RAG Based Legal Document Assistant")
     st.sidebar.title("🔍 Navigation")
     page = st.sidebar.radio("Go to:", ["Summarizer", "Chatbot", "Document Generator"])
 
