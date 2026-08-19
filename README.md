@@ -40,6 +40,7 @@ An enterprise-grade, local **Retrieval-Augmented Generation (RAG)** platform des
 
 ---
 
+<<<<<<< HEAD
 ## 🏗️ System Architecture
 
 ```mermaid
@@ -89,6 +90,15 @@ cd RAG-Based-Legal-Document-Assistant
 pip install -r requirements.txt
 
 # 3. Launch application
+=======
+## 🔧 Installation & Quickstart
+
+```bash
+# 1. Install dependencies
+pip install -r requirements.txt
+
+# 2. Launch application
+>>>>>>> 778ca0525845585a232748686960a92a35626e59
 streamlit run app.py
 ```
 

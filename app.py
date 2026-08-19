@@ -5,6 +5,12 @@ import io
 import time
 import textwrap
 from datetime import datetime
+<<<<<<< HEAD
+=======
+
+sys.path.append(os.path.dirname(__file__))
+
+>>>>>>> 778ca0525845585a232748686960a92a35626e59
 from dotenv import load_dotenv
 
 # Import custom src modules
@@ -357,11 +363,19 @@ def main():
     st.sidebar.markdown(textwrap.dedent("""
     <div class='sb-brand'>
         <div class='sb-brand-icon'>⚖️</div>
+<<<<<<< HEAD
         <div class='sb-brand-name'>LEGAL DOCUMENT ASSISTANT</div>
     </div>
     <div class='sb-brand-sub'>BY SHANAWAZ • AI LEGAL WORKSPACE</div>
     <div style='display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; font-size:0.75rem; color:#94A3B8;'>
         <span>🔔 Notifications </span>
+=======
+        <div class='sb-brand-name'>LEGAL ASSISTANT</div>
+    </div>
+    <div class='sb-brand-sub'>BY SHANAWAZ • AI LEGAL WORKSPACE</div>
+    <div style='display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; font-size:0.75rem; color:#94A3B8;'>
+        <span>🔔 Notifications (3)</span>
+>>>>>>> 778ca0525845585a232748686960a92a35626e59
         <span style='color:#38BDF8;'>🟢 Live</span>
     </div>
     """), unsafe_allow_html=True)

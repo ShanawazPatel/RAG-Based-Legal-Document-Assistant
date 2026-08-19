@@ -1,6 +1,9 @@
 import logging
 import os
+<<<<<<< HEAD
 import io
+=======
+>>>>>>> 778ca0525845585a232748686960a92a35626e59
 from typing import List, Tuple, Dict, Any, Optional
 from PyPDF2 import PdfReader
 from dotenv import load_dotenv
@@ -58,6 +61,7 @@ def extract_full_text_from_pdf(pdf_file) -> str:
     """
     pages = extract_pages_from_pdf(pdf_file)
     return "\n\n".join([f"--- Page {p['page']} ---\n{p['text']}" for p in pages])
+<<<<<<< HEAD
 
 
 def extract_text_from_file(uploaded_file) -> str:
@@ -87,3 +91,5 @@ def extract_text_from_file(uploaded_file) -> str:
             return ""
     else:
         return extract_full_text_from_pdf(uploaded_file)
+=======
+>>>>>>> 778ca0525845585a232748686960a92a35626e59
