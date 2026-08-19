@@ -14,7 +14,12 @@ MODEL_NAME = "llama3.2:1b"
 def extract_text_from_pdf(pdf_file):
     try:
         pdf_reader = PdfReader(pdf_file)
-        text = "\n".join([page.extract_text() for page in pdf_reader.pages if page.extract_text()])
+        pages = []
+        for page in pdf_reader.pages:
+            txt = page.extract_text()
+            if txt:
+                pages.append(txt)
+        text = "\n".join(pages)
         return text.strip() if text else None
     except Exception as e:
         logging.error(f"Error extracting text from PDF: {str(e)}")
@@ -49,14 +54,32 @@ def generate_document(doc_type, user_input):
 
 def download_document(doc, filename, file_type):
     if file_type == "pdf":
-        buffer = io.BytesIO()
+        # build plain text from a python-docx Document or fallback to str()
+        if hasattr(doc, "paragraphs"):
+            text = "\n".join(p.text for p in doc.paragraphs)
+        elif isinstance(doc, str):
+            text = doc
+        else:
+            text = str(doc)
+
         pdf = FPDF()
         pdf.add_page()
-        pdf.set_font("Arial", size=12)
-        pdf.multi_cell(0, 10, doc.paragraphs[0].text)
-        pdf.output(buffer, "F")
-        st.download_button("📥 Download PDF", data=buffer.getvalue(), file_name=filename, mime="application/pdf")
+        pdf.set_auto_page_break(auto=True, margin=15)
+        # try to use a unicode-safe font if available, else fall back
+        try:
+            pdf.add_font("DejaVu", "", "DejaVuSans.ttf", uni=True)
+            pdf.set_font("DejaVu", size=12)
+        except Exception:
+            pdf.set_font("Arial", size=12)
+
+        for line in text.split("\n"):
+            pdf.multi_cell(0, 8, line)
+
+        
+        pdf_bytes = pdf.output(dest="S").encode("latin-1")
+        st.download_button("📥 Download PDF", data=pdf_bytes, file_name=filename, mime="application/pdf")
     elif file_type == "docx":
         buffer = io.BytesIO()
         doc.save(buffer)
+        buffer.seek(0)
         st.download_button("📥 Download DOCX", data=buffer.getvalue(), file_name=filename, mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
